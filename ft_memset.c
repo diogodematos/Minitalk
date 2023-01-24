@@ -1,47 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dcarrilh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 13:45:42 by dcarrilh          #+#    #+#             */
-/*   Updated: 2023/01/18 13:59:37 by dcarrilh         ###   ########.fr       */
+/*   Created: 2022/11/03 10:45:40 by dcarrilh          #+#    #+#             */
+/*   Updated: 2022/11/03 12:30:16 by dcarrilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	sendmsg(int svr_pid, char c)
+void	*ft_memset(void *str, int b, size_t n)
 {
-	int	bit;
-	
-	bit = 7;
-	while ( bit >= 0)
-	{
-		if ((c >> bit & 1) == 1)
-			kill(svr_pid, SIGUSR1);
-		else
-			kill(svr_pid, SIGUSR2);
-		usleep(400);
-		bit--;
-	}
-}
-	
-int	main(int argc, char **argv)
-{	
-	int	svr_pid;
-	int	a;
-	
-	if (argc != 3)
-		return (printf("error"));
-	svr_pid = ft_atoi(argv[1]);
+	unsigned char	*p;
+	size_t			a;
+
 	a = 0;
-	while (argv[2][a])
+	p = (unsigned char *)str;
+	while (a < n)
 	{
-		sendmsg(svr_pid, argv[2][a]);
+		p[a] = (unsigned char)b;
 		a++;
 	}
-	sendmsg(svr_pid, '\n');
-	return (0);
+	return (str);
 }
+
+/*int main () 
+{
+   char str[50];
+
+   strcpy(str,"bora la jovens");
+   puts(str);
+
+   memset(str,'?',7);
+   puts(str);
+   
+   ft_memset(str,'?',7);
+   puts(str);
+   return (0);
+}	*/

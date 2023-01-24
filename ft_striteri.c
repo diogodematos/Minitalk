@@ -1,47 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dcarrilh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 13:45:42 by dcarrilh          #+#    #+#             */
-/*   Updated: 2023/01/18 13:59:37 by dcarrilh         ###   ########.fr       */
+/*   Created: 2022/11/09 12:17:57 by dcarrilh          #+#    #+#             */
+/*   Updated: 2022/11/09 12:17:58 by dcarrilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	sendmsg(int svr_pid, char c)
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-	int	bit;
-	
-	bit = 7;
-	while ( bit >= 0)
-	{
-		if ((c >> bit & 1) == 1)
-			kill(svr_pid, SIGUSR1);
-		else
-			kill(svr_pid, SIGUSR2);
-		usleep(400);
-		bit--;
-	}
-}
-	
-int	main(int argc, char **argv)
-{	
-	int	svr_pid;
-	int	a;
-	
-	if (argc != 3)
-		return (printf("error"));
-	svr_pid = ft_atoi(argv[1]);
+	unsigned int	a;
+
 	a = 0;
-	while (argv[2][a])
+	if (!s || !f)
+		return ;
+	while (s[a])
 	{
-		sendmsg(svr_pid, argv[2][a]);
+		f(a, &s[a]);
 		a++;
 	}
-	sendmsg(svr_pid, '\n');
-	return (0);
 }
+
+/*void my_func(unsigned int i, char *c)
+{
+	printf("%d\n", i);
+	if (ft_isalpha(*c))
+	{
+		*c = ft_toupper(*c);
+	}
+}
+int main()
+{
+	char str[] = "hello.";
+	puts(str);
+	ft_striteri(str, my_func);
+	puts(str);
+	return (0);
+}*/

@@ -1,47 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dcarrilh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 13:45:42 by dcarrilh          #+#    #+#             */
-/*   Updated: 2023/01/18 13:59:37 by dcarrilh         ###   ########.fr       */
+/*   Created: 2022/11/03 12:31:37 by dcarrilh          #+#    #+#             */
+/*   Updated: 2022/11/03 14:53:44 by dcarrilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	sendmsg(int svr_pid, char c)
+void	ft_bzero(void *dest, size_t n)
 {
-	int	bit;
-	
-	bit = 7;
-	while ( bit >= 0)
-	{
-		if ((c >> bit & 1) == 1)
-			kill(svr_pid, SIGUSR1);
-		else
-			kill(svr_pid, SIGUSR2);
-		usleep(400);
-		bit--;
-	}
-}
-	
-int	main(int argc, char **argv)
-{	
-	int	svr_pid;
-	int	a;
-	
-	if (argc != 3)
-		return (printf("error"));
-	svr_pid = ft_atoi(argv[1]);
+	unsigned char	*str;
+	size_t			a;
+
 	a = 0;
-	while (argv[2][a])
+	str = (unsigned char *)dest;
+	while (a < n)
 	{
-		sendmsg(svr_pid, argv[2][a]);
+		str[a] = '\0';
 		a++;
 	}
-	sendmsg(svr_pid, '\n');
-	return (0);
 }
+
+/*int main()
+{
+	char str[50];
+
+	strcpy(str, "jhhg");
+	puts(str);
+	bzero(str, 2);
+	printf("String after first |%d| bytes changes to 0 is - |%s|\n", 2, str);
+	ft_bzero(str, 2);
+	printf("String after first |%d| bytes changes to 0 is - |%s|\n", 2, str);
+	return (0);
+}	*/

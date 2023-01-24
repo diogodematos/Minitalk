@@ -1,47 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dcarrilh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 13:45:42 by dcarrilh          #+#    #+#             */
-/*   Updated: 2023/01/18 13:59:37 by dcarrilh         ###   ########.fr       */
+/*   Created: 2022/11/04 11:49:37 by dcarrilh          #+#    #+#             */
+/*   Updated: 2022/11/04 15:55:15 by dcarrilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	sendmsg(int svr_pid, char c)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	int	bit;
-	
-	bit = 7;
-	while ( bit >= 0)
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	while (src[j])
+		j++;
+	if (size != 0)
 	{
-		if ((c >> bit & 1) == 1)
-			kill(svr_pid, SIGUSR1);
-		else
-			kill(svr_pid, SIGUSR2);
-		usleep(400);
-		bit--;
+		while (i < size - 1 && src[i] != '\0')
+		{
+			dest[i] = src[i];
+			i++;
+		}
+		dest[i] = '\0';
 	}
+	return (j);
 }
-	
-int	main(int argc, char **argv)
-{	
-	int	svr_pid;
-	int	a;
-	
-	if (argc != 3)
-		return (printf("error"));
-	svr_pid = ft_atoi(argv[1]);
-	a = 0;
-	while (argv[2][a])
-	{
-		sendmsg(svr_pid, argv[2][a]);
-		a++;
-	}
-	sendmsg(svr_pid, '\n');
+
+/*int	main(void)
+{
+	char	gt[18] = "";
+	char 	mi[] = "amanah";
+
+	printf ("%zu, %s", ft_strlcpy(gt, mi, 5), gt);
 	return (0);
-}
+}*/

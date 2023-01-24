@@ -1,47 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   ft_printstr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dcarrilh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 13:45:42 by dcarrilh          #+#    #+#             */
-/*   Updated: 2023/01/18 13:59:37 by dcarrilh         ###   ########.fr       */
+/*   Created: 2022/12/09 11:32:37 by dcarrilh          #+#    #+#             */
+/*   Updated: 2022/12/09 11:32:39 by dcarrilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	sendmsg(int svr_pid, char c)
+int	ft_printstr(char *str)
 {
-	int	bit;
-	
-	bit = 7;
-	while ( bit >= 0)
+	int	i;
+	int	len;
+
+	if (!str)
 	{
-		if ((c >> bit & 1) == 1)
-			kill(svr_pid, SIGUSR1);
-		else
-			kill(svr_pid, SIGUSR2);
-		usleep(400);
-		bit--;
+		write (1, "(null)", 6);
+		return (6);
 	}
-}
-	
-int	main(int argc, char **argv)
-{	
-	int	svr_pid;
-	int	a;
-	
-	if (argc != 3)
-		return (printf("error"));
-	svr_pid = ft_atoi(argv[1]);
-	a = 0;
-	while (argv[2][a])
+	i = 0;
+	len = 0;
+	while (str[i])
 	{
-		sendmsg(svr_pid, argv[2][a]);
-		a++;
+		len += ft_printchar(str[i]);
+		i++;
 	}
-	sendmsg(svr_pid, '\n');
-	return (0);
+	return (len);
 }

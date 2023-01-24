@@ -1,47 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dcarrilh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 13:45:42 by dcarrilh          #+#    #+#             */
-/*   Updated: 2023/01/18 13:59:37 by dcarrilh         ###   ########.fr       */
+/*   Created: 2022/11/08 12:04:25 by dcarrilh          #+#    #+#             */
+/*   Updated: 2022/11/08 14:09:09 by dcarrilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	sendmsg(int svr_pid, char c)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	int	bit;
-	
-	bit = 7;
-	while ( bit >= 0)
-	{
-		if ((c >> bit & 1) == 1)
-			kill(svr_pid, SIGUSR1);
-		else
-			kill(svr_pid, SIGUSR2);
-		usleep(400);
-		bit--;
-	}
-}
-	
-int	main(int argc, char **argv)
-{	
-	int	svr_pid;
-	int	a;
-	
-	if (argc != 3)
-		return (printf("error"));
-	svr_pid = ft_atoi(argv[1]);
+	char			*dest;
+	unsigned int	a;
+
+	if (!s)
+		return (0);
+	dest = malloc (len * sizeof (char) + 1);
+	if (!dest)
+		return (0);
 	a = 0;
-	while (argv[2][a])
-	{
-		sendmsg(svr_pid, argv[2][a]);
-		a++;
+	if (ft_strlen(s) >= start)
+	{	
+		while (s[start] && a != len)
+		{
+			dest[a] = s[start];
+			a++;
+			start++;
+		}
 	}
-	sendmsg(svr_pid, '\n');
-	return (0);
+	dest[a] = '\0';
+	return (dest);
 }
+
+/*int	main(void)
+{
+	char source[] = "bora";
+
+	printf("%s", ft_substr(source, 5, 2));
+	return (0);
+}*/

@@ -1,47 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dcarrilh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 13:45:42 by dcarrilh          #+#    #+#             */
-/*   Updated: 2023/01/18 13:59:37 by dcarrilh         ###   ########.fr       */
+/*   Created: 2022/11/03 15:01:01 by dcarrilh          #+#    #+#             */
+/*   Updated: 2022/11/03 15:13:12 by dcarrilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	sendmsg(int svr_pid, char c)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	int	bit;
-	
-	bit = 7;
-	while ( bit >= 0)
-	{
-		if ((c >> bit & 1) == 1)
-			kill(svr_pid, SIGUSR1);
-		else
-			kill(svr_pid, SIGUSR2);
-		usleep(400);
-		bit--;
-	}
-}
-	
-int	main(int argc, char **argv)
-{	
-	int	svr_pid;
-	int	a;
-	
-	if (argc != 3)
-		return (printf("error"));
-	svr_pid = ft_atoi(argv[1]);
+	unsigned char	*p;
+	unsigned char	*t;
+	size_t			a;
+
+	if (!dest && !src)
+		return (0);
 	a = 0;
-	while (argv[2][a])
+	p = (unsigned char *)src;
+	t = (unsigned char *)dest;
+	while (a < n)
 	{
-		sendmsg(svr_pid, argv[2][a]);
+		t[a] = p[a];
 		a++;
 	}
-	sendmsg(svr_pid, '\n');
+	return (dest);
+}
+
+/*int	main()
+{
+	char str[50] = "amanha";
+	char dest[50] = "";
+
+	memcpy(dest, str, 2);
+	puts(dest);
+	ft_memcpy(dest, str, 2);
+	puts(dest);
 	return (0);
 }
+*/
