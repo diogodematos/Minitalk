@@ -12,6 +12,7 @@ SRC = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 	ft_printstr.c ft_printpnt.c \
 	get_next_line.c \
 	server.c client.c \
+	server_bonus.c client_bonus.c \
 
 CC = cc
 RM = rm -rf
@@ -26,13 +27,15 @@ $(NAME): $(OBJ)
 		@$(AR) $(NAME) $(OBJ)
 		@$(CC) $(CFLAGS) server.c libft.a -o server
 		@$(CC) $(CFLAGS) client.c libft.a -o client
+		@$(CC) $(CFLAGS) server_bonus.c libft.a -o server_bonus
+		@$(CC) $(CFLAGS) client_bonus.c libft.a -o client_bonus
 		
 		
 clean:
 		@$(RM) $(OBJ)
 		
 fclean: clean
-		@$(RM) $(NAME) server client
+		@$(RM) $(NAME) server client server_bonus client_bonus
 		
 re: fclean all
 
