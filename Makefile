@@ -21,6 +21,7 @@ CFLAGS = -Wall -Wextra -Werror
 AR = ar rcs
 
 OBJ = $(SRC:%.c=%.o)
+BONUS = $(BNS:%.c=%.o)
 
 all: $(NAME)
 
@@ -28,8 +29,12 @@ $(NAME): $(OBJ)
 		@$(AR) $(NAME) $(OBJ)
 		@$(CC) $(CFLAGS) server.c libft.a -o server
 		@$(CC) $(CFLAGS) client.c libft.a -o client
+		
+bonus: $(OBJ) $(BONUS)
+		@$(AR) $(NAME) $(BONUS) $(OBJ)
 		@$(CC) $(CFLAGS) server_bonus.c libft.a -o server_bonus
 		@$(CC) $(CFLAGS) client_bonus.c libft.a -o client_bonus
+	
 		
 		
 clean:
