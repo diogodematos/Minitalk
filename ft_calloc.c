@@ -25,7 +25,7 @@ void	*ft_calloc(size_t num, size_t size)
 	return (ptr);
 }
 
-void print_array(void *ptr, size_t jump, int n)
+/*void print_array(void *ptr, size_t jump, int n)
 {
 	printf("{ ");
 	for(int i = 0; i < n; i++)
@@ -38,7 +38,7 @@ void print_array(void *ptr, size_t jump, int n)
 	printf("}\n");
 }
 
-/*int main(void)
+int main(void)
 {
 	int *t1 = NULL;
 	int *t2 = NULL;

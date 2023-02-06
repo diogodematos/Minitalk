@@ -33,7 +33,7 @@ static void	rcvmsg(int sig)
 int	main(int argc, char **argv)
 {
 	pid_t	pid;
-	
+
 	(void)argv;
 	if (argc != 1)
 		return (ft_printf("Try again, because some error occured"));

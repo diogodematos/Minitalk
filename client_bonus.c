@@ -15,9 +15,9 @@
 static void	sendmsg(int svr_pid, char c)
 {
 	int	bit;
-	
+
 	bit = 7;
-	while ( bit >= 0)
+	while (bit >= 0)
 	{
 		if ((c >> bit & 1) == 1)
 			kill(svr_pid, SIGUSR1);
@@ -27,12 +27,12 @@ static void	sendmsg(int svr_pid, char c)
 		bit--;
 	}
 }
-	
+
 int	main(int argc, char **argv)
 {	
 	int	svr_pid;
 	int	a;
-	
+
 	if (argc != 3)
 		return (ft_printf("error"));
 	svr_pid = ft_atoi(argv[1]);
