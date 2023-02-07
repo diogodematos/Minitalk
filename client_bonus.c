@@ -23,26 +23,42 @@ static void	sendmsg(int svr_pid, char c)
 			kill(svr_pid, SIGUSR1);
 		else
 			kill(svr_pid, SIGUSR2);
-		usleep(400);
+		usleep(40);
 		bit--;
 	}
 }
 
+static void	sendnull(int sig, siginfo_t *info, void *ucontent)
+{
+	(void)ucontent;
+	(void)info;
+	if (sig == SIGUSR1)
+		ft_printf("message received");
+	exit(0);
+}
+
 int	main(int argc, char **argv)
 {	
-	int	svr_pid;
-	int	a;
+	struct sigaction	da;
+	int					svr_pid;
+	int					a;
 
+	da.sa_sigaction = sendnull;
+	sigemptyset(&da.sa_mask);
+	da.sa_flags = SA_RESTART;
 	if (argc != 3)
 		return (ft_printf("error"));
 	svr_pid = ft_atoi(argv[1]);
 	a = 0;
+	sigaction(SIGUSR1, &da, NULL);
 	while (argv[2][a])
 	{
 		sendmsg(svr_pid, argv[2][a]);
 		a++;
 	}
 	sendmsg(svr_pid, '\n');
-	ft_printf("message received\n");
+	sendmsg(svr_pid, '\0');
+	while (1)
+		pause();
 	return (0);
 }
