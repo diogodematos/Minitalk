@@ -34,7 +34,7 @@ int	main(int argc, char **argv)
 	int	a;
 
 	if (argc != 3)
-		return (ft_printf("error"));
+		return (ft_printf("Error: Message Missed!\n"));
 	svr_pid = ft_atoi(argv[1]);
 	a = 0;
 	while (argv[2][a])
